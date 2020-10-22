@@ -40,8 +40,10 @@ for (m in model_list) {
   new_rows <- tidy(model_fit) %>%
     rename(condition = term) %>%
     mutate(pe  = estimate,
-           lwr = estimate - (1.96 * std.error),
-           upr = estimate + (1.96 * std.error)) %>%
+           # - adjusted t-score for judging significance, due to running many
+           #   tests, and adjusted following FDR (False Discovery Rate) procedure
+           lwr = estimate - (2.4 * std.error),
+           upr = estimate + (2.4 * std.error)) %>%
     # - normalize coefficients by dividing them by the standard deviation
     mutate(pe_std = pe / control_sd,
            lwr_std = lwr / control_sd,
@@ -95,7 +97,7 @@ ggplot(plot_db,
   geom_segment(aes(x = condition, xend = condition, 
                    y = lwr_std, yend = upr_std)) +
   scale_y_continuous("Treatment effect (in standard deviation change)", 
-                     limits = c(-0.4, 0.4)) +
+                     limits = c(-0.4, 0.5)) +
   scale_x_discrete("") +
   coord_flip() + 
   facet_grid(study ~ outcome, scales = "free") +
@@ -108,3 +110,5 @@ ggplot(plot_db,
         axis.title.x = element_text(size = 10))
 dev.off()  
 
+plot_db <- plot_db %>% mutate(significant = ifelse(sign(lwr_std) == sign(upr_std), 1, 0))
+plot_db %>% filter(significant == 1)
