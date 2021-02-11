@@ -1,13 +1,13 @@
 #===============================================================================
 # 01-models-figure.R
-# Purpose: To replicate Figure X of the paper, where we report the results of 
+# Purpose: To replicate Figure 1 of the paper, where we report the results of 
 #          a set of 5 statistical models    
 # Article: "The (null) effects of happiness on affective polarization, conspiracy 
-#           endorsement, and deep fake beliefs : Evidence from five survey 
+#           endorsement, and deep fake recognition : Evidence from five survey 
 #           experiments in three countries"
 # Journal: Political Behavior
 # Year: 2020
-# Authors: 
+# Authors: Xudong Yu, Magdalena Wojcieszak, Seungsu Lee, Andreu Casas, Rachid Azrout, Tomasz Gackowski
 #===============================================================================
 
 # PACKAGES
