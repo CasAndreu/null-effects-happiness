@@ -6,7 +6,7 @@ This repo contains the replication material/code for the paper "The (null) effec
 The ./data/ directory contains the necessary data to replicate the tables presented in the appendix of the paper.
 
 ## Code
-The ./code/ directory contains separate scripts to replicate each table presented in the appendix of the article. 
+The ./code/ directory contains separate scripts to replicate tables of each study presented in the appendix of the article. 
 
 ## Models
 The ./models/ directory contains the main effects models to replicate figure 1 of the paper.
