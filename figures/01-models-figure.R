@@ -1,13 +1,13 @@
 #===============================================================================
 # 01-models-figure.R
-# Purpose: To replicate Figure 1 of the paper, where we report the results of 
+# Purpose: To replicate Figure X of the paper, where we report the results of 
 #          a set of 5 statistical models    
 # Article: "The (null) effects of happiness on affective polarization, conspiracy 
-#           endorsement, and deep fake recognition : Evidence from five survey 
+#           endorsement, and deep fake beliefs : Evidence from five survey 
 #           experiments in three countries"
 # Journal: Political Behavior
 # Year: 2020
-# Authors: Xudong Yu, Magdalena Wojcieszak, Seungsu Lee, Andreu Casas, Rachid Azrout, Tomasz Gackowski
+# Authors: 
 #===============================================================================
 
 # PACKAGES
@@ -73,17 +73,35 @@ plot_db <- model_table %>%
                             `condition_comHappyQ` = "Happy questions",
                             `condition_comHappyW` = "Happy writing",
                             `conditionANGW` = "Angry writing",
-                            `conditionANXW` = "Anxiety writing"),
+                            `conditionANXW` = "Anxious writing"),
+         condition = factor(condition,
+                            levels = rev(c(
+                              "Happy writing",
+                              "Happy questions",
+                              "Happy photos",
+                              "Angry writing",
+                              "Anxious writing"
+                            ))),
          study = paste0("Study ", gsub("[a-z]", "", study)),
          outcome = recode(outcome,
                           `ap_index` = "Affective \npolarization",
-                          `conspiracy` = "Beliefs in \nconspiracy theories",
+                          `conspiracy` = "Conspiracy \nendorsement",
                           `ft_feminist` = "Feeling thermometer \ntowards feminists",
                           `ft_immigrant` = "Feeling thermometer \ntowards immigrants",
                           `ft_neonazi` = "Feeling thermometer \ntowards neo-Nazis",
                           `ft_nationalist` = "Feeling thermometer \ntowards nationalists",
-                          `video` = "Believing a \ndeep fake video"
-                          ))
+                          `video` = "Deep fake \nrecognition"
+         ),
+         outcome = factor(outcome,
+                          levels = c(
+                            "Affective \npolarization",
+                            "Feeling thermometer \ntowards immigrants",
+                            "Feeling thermometer \ntowards feminists",
+                            "Feeling thermometer \ntowards neo-Nazis",
+                            "Feeling thermometer \ntowards nationalists",
+                            "Conspiracy \nendorsement",
+                            "Deep fake \nrecognition"
+                          )))
 
 
 # PLOT
@@ -109,6 +127,3 @@ ggplot(plot_db,
         axis.text.y = element_text(size = 10),
         axis.title.x = element_text(size = 10))
 dev.off()  
-
-plot_db <- plot_db %>% mutate(significant = ifelse(sign(lwr_std) == sign(upr_std), 1, 0))
-plot_db %>% filter(significant == 1)
